@@ -76,3 +76,30 @@ void sven_derivative(double (* df)(const double), const double initial,
         right_bound = prev;
     }
 }
+
+double dichotomy(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon)
+{
+    int itr;
+    double delta;
+    double lambda, mu;
+
+    itr = 0;
+    delta = 0.1 * epsilon;
+
+    do
+    {
+        ++itr;
+
+        lambda = (left_bound + right_bound - delta) / 2.0;
+        mu = (left_bound + right_bound + delta) / 2.0;
+
+        if (f(lambda) < f(mu))
+            right_bound = mu;
+        else
+            left_bound = lambda;
+    }
+    while (right_bound - left_bound > epsilon && itr < MAX_ITERATIONS);
+
+    return (left_bound + right_bound) / 2.0;
+}
