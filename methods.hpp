@@ -15,5 +15,10 @@ double golden_section_one(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
 double golden_section_two(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
+    
+double fibonacci_one(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon);
+double fibonacci_two(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon);
 
 #endif
