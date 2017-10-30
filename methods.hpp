@@ -17,13 +17,15 @@ double golden_section_one(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
 double golden_section_two(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
-    
+
 double fibonacci_one(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
 double fibonacci_two(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
-    
+
 double newton(double (* df)(const double), double (* ddf)(const double),
     const double initial, const double epsilon);
+double linear_interpolation(double (* df)(const double),
+    double& left_bound, double& right_bound, const double epsilon);
 
 #endif

@@ -326,3 +326,109 @@ double newton(double (* df)(const double), double (* ddf)(const double),
 
     return curr;
 }
+
+double linear_interpolation(double (* df)(const double),
+    double& left_bound, double& right_bound, const double epsilon)
+{
+    int itr;
+    double curr;
+
+    itr = 0;
+
+    do
+    {
+        ++itr;
+
+        curr = right_bound - df(right_bound) * (right_bound - left_bound) /
+            (df(right_bound) - df(left_bound));
+
+        if (df(curr) > 0.0)
+            right_bound = curr;
+        else
+            left_bound = curr;
+    }
+    while (epsilon && df(curr) > epsilon && itr < MAX_ITERATIONS);
+
+    return curr;
+}
+
+static double get_approximation_one(double (* f)(const double),
+    const double a, const double b, const double c)
+{
+    return (1.0 / 2.0) *
+        (
+            f(a) * (pow(b, 2.0) - pow(c, 2.0)) +
+            f(b) * (pow(c, 2.0) - pow(a, 2.0)) +
+            f(c) * (pow(a, 2.0) - pow(b, 2.0))
+        ) /
+        (
+            f(a) * (b - c) +
+            f(b) * (c - a) +
+            f(c) * (a - b)
+        );
+}
+
+static double get_approximation_two(double (* f)(const double),
+    const double a, const double b, const double c)
+{
+    return (a + b) / 2.0 + (1.0 / 2.0) *
+        (
+            (f(a) - f(b)) * (b - c) * (c - a)
+        ) /
+        (
+            f(a) * (b - c) + f(b) * (c - a) + f(c) * (a - b)
+        );
+}
+
+static double get_approximation_three(double (* f)(const double),
+    const double a, const double b, const double c)
+{
+    return b + (1.0 / 2.0) *
+        (
+            pow(b - a, 2.0) * (f(b) - f(c)) -
+            pow(b - c, 2.0) * (f(b) - f(a))
+        ) /
+        (
+            (b - a) * (f(b) - f(c)) -
+            (b - c) * (f(b) - f(a))
+        );
+}
+
+static double get_approximation_four(double (* f)(const double),
+    const double a, const double b, const double c)
+{
+    return b + (1.0 / 2.0) *
+        (b - a) * (f(a) - f(c)) /
+        (f(a) - 2.0 * f(b) + f(c));
+}
+
+double interpolation_extrapolation(double (* f)(const double),
+    const double initial, const double epsilon)
+{
+    int itr;
+    double aprx, step;
+    double left, center, right;
+
+    step = 0.001;
+
+    itr = 0;
+    center = initial;
+
+    do
+    {
+        ++itr;
+
+        left = center - step;
+        right = center + step;
+        aprx = get_approximation_one(f, left, center, right);
+
+        if (fabs((aprx - center) / center) < epsilon &&
+            fabs((f(aprx) - f(center)) / f(center)) < epsilon)
+            break;
+        else
+            center = aprx;
+    }
+    while (itr < MAX_ITERATIONS);
+
+    return (center + aprx) / 2.0;
+}
