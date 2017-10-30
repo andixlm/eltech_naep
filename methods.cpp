@@ -517,3 +517,41 @@ void sven_dsc(double (* f)(const double), const double initial,
         right_bound = cntr;
     }
 }
+
+double dsc(double (* f)(double),
+    double& left_bound, double& cntr, double& right_bound, const double epsilon)
+{
+    int itr;
+    double aprx;
+
+    do
+    {
+        ++itr;
+
+        aprx = get_approximation_four(f, left_bound, cntr, right_bound);
+
+        if (fabs((aprx - cntr) / cntr) < epsilon &&
+            fabs((f(aprx) - f(cntr)) / f(cntr)) < epsilon)
+            break;
+
+        if (f(cntr) < f(aprx))
+        {
+            if (cntr < aprx)
+                right_bound = aprx;
+            else
+                left_bound = aprx;
+        }
+        else
+        {
+            if (cntr < aprx)
+                left_bound = cntr;
+            else
+                right_bound = cntr;
+
+            cntr = aprx;
+        }
+    }
+    while (itr < MAX_ITERATIONS);
+
+    return (cntr + aprx) / 2.0;
+}
