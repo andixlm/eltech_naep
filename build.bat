@@ -1,3 +1,3 @@
 @echo off
 
-g++ -ImuParser/include *.cpp muParser/*.cpp -ona
+g++ -Iinclude -Iinclude/muParser src/*.cpp src/muParser/*.cpp -ona
