@@ -10,14 +10,14 @@ void sven_value(double (* f)(const double), const double initial,
 
     step = 0.01;
 
-    if (init != 0.0)
-        step *= fabs(init);
+    if (initial != 0.0)
+        step *= fabs(initial);
 
-    if (f(init + step) > f(init))
+    if (f(initial + step) > f(initial))
         step = -step;
 
-    curr = init;
-    next = init + step;
+    curr = initial;
+    next = initial + step;
 
     while (f(curr) > f(next))
     {
@@ -48,14 +48,14 @@ void sven_derivative(double (* df)(const double), const double initial,
 
     step = 0.01;
 
-    if (init != 0.0)
-        step *= fabs(init);
+    if (initial != 0.0)
+        step *= fabs(initial);
 
-    if (df(init) > 0.0)
+    if (df(initial) > 0.0)
         step = -step;
 
-    prev = init;
-    curr = init + step;
+    prev = initial;
+    curr = initial + step;
 
     while (copysignf(1.0, df(prev)) * copysignf(1.0, df(curr)) > 0.0)
     {
