@@ -54,3 +54,11 @@ double find_norm(const std::vector<double>& x)
 
     return sqrt(result);
 }
+
+void convert_dimensions(const double alpha,
+    const std::vector<double>& initial, const std::vector<double> direction,
+    std::vector<double>& dst)
+{
+    for (int idx = 0; idx < initial.size(); ++idx)
+        dst[idx] = initial[idx] + alpha * direction[idx];
+}
