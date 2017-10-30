@@ -432,3 +432,46 @@ double interpolation_extrapolation(double (* f)(const double),
 
     return (center + aprx) / 2.0;
 }
+
+double powell(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon)
+{
+    int itr;
+    double cntr, aprx;
+
+    itr = 0;
+    cntr = (left_bound + right_bound) / 2.0;
+
+    do
+    {
+        ++itr;
+
+        aprx = (itr == 1) ?
+            get_approximation_one(f, left_bound, cntr, right_bound) :
+            get_approximation_two(f, left_bound, cntr, right_bound);
+
+        if (fabs((cntr - aprx) / cntr) < epsilon &&
+            fabs((f(cntr) - f(aprx)) / f(cntr)) < epsilon)
+            return (cntr + aprx) / 2.0;
+
+        if (f(cntr) < f(aprx))
+        {
+            if (cntr < aprx)
+                right_bound = aprx;
+            else
+                left_bound = aprx;
+        }
+        else
+        {
+            if (cntr < aprx)
+                left_bound = cntr;
+            else
+                right_bound = cntr;
+
+            cntr = aprx;
+        }
+    }
+    while (itr < MAX_ITERATIONS);
+
+    return (cntr + aprx) / 2.0;
+}
