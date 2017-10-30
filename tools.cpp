@@ -1,3 +1,4 @@
+#include <cmath>
 #include <vector>
 
 #include "tools.hpp"
@@ -38,4 +39,18 @@ std::vector<double> find_antigradient(double (* f)(const std::vector<double>&),
         *value_itr = -(*value_itr);
         
     return std::move(auxiliary);
+}
+
+/*
+ * Returns norm of vector "x".
+ * Checked: yes.
+ */
+double find_norm(const std::vector<double>& x)
+{
+    double result = 0.0;
+
+    for (auto value_itr = x.cbegin(); value_itr != x.cend(); ++value_itr)
+        result += pow(*value_itr, 2.0);
+
+    return sqrt(result);
 }
