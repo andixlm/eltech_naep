@@ -56,7 +56,7 @@ double find_norm(const std::vector<double>& x)
 }
 
 void convert_dimensions(const double alpha,
-    const std::vector<double>& initial, const std::vector<double> direction,
+    const std::vector<double>& initial, const std::vector<double>& direction,
     std::vector<double>& dst)
 {
     for (int idx = 0; idx < initial.size(); ++idx)
