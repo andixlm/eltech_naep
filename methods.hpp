@@ -7,8 +7,13 @@ void sven_value(double (* f)(const double), const double initial,
     double& left_bound, double& right_bound);
 void sven_derivative(double (* df)(const double), const double initial,
     double& left_bound, double& right_bound);
-    
+
 double dichotomy(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon);
+
+double golden_section_one(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon);
+double golden_section_two(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
 
 #endif

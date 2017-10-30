@@ -103,3 +103,70 @@ double dichotomy(double (* f)(const double),
 
     return (left_bound + right_bound) / 2.0;
 }
+
+double golden_section_one(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon)
+{
+    int itr;
+    double lambda, mu;
+
+    itr = 0;
+    lambda = left_bound +
+        ((3.0 - sqrt(5.0)) / 2.0) * (right_bound - left_bound);
+    mu = left_bound +
+        ((sqrt(5.0) - 1.0) / 2.0) * (right_bound - left_bound);
+
+    while (right_bound - left_bound > epsilon && itr < MAX_ITERATIONS)
+    {
+        ++itr;
+
+        if (f(lambda) > f(mu))
+        {
+            left_bound = lambda;
+            lambda = mu;
+            mu = left_bound +
+                ((sqrt(5.0) - 1.0) / 2.0) * (right_bound - left_bound);
+        }
+        else
+        {
+            right_bound = mu;
+            mu = lambda;
+            lambda = left_bound +
+                ((3.0 - sqrt(5.0)) / 2.0) * (right_bound - left_bound);
+        }
+    }
+
+    return (left_bound + right_bound) / 2.0;
+}
+
+double golden_section_two(double (* f)(const double),
+    double& left_bound, double& right_bound, const double epsilon)
+{
+    int itr;
+    double pnt, sym_pnt;
+
+    itr = 0;
+    pnt = left_bound +
+        ((sqrt(5.0) - 1.0) / 2.0) * (right_bound - left_bound);
+
+    do
+    {
+        ++itr;
+
+        sym_pnt = left_bound + right_bound - pnt;
+
+        if (pnt < sym_pnt)
+            if (f(pnt) < f(sym_pnt))
+                right_bound = sym_pnt;
+            else
+                left_bound = pnt, pnt = sym_pnt;
+        else
+            if (f(pnt) < f(sym_pnt))
+                left_bound = sym_pnt;
+            else
+                right_bound = pnt, pnt = sym_pnt;
+    }
+    while (right_bound - left_bound > epsilon && itr < MAX_ITERATIONS);
+
+    return (left_bound + right_bound) / 2.0;
+}
