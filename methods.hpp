@@ -10,6 +10,8 @@ void sven_derivative(double (* df)(const double), const double initial,
 
 double dichotomy(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
+double bolzano(double (* df)(const double),
+    double& left_bound, double& right_bound, const double epsilon);
 
 double golden_section_one(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);

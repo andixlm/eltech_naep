@@ -104,6 +104,31 @@ double dichotomy(double (* f)(const double),
     return (left_bound + right_bound) / 2.0;
 }
 
+double bolzano(double (* df)(const double),
+    double& left_bound, double& right_bound, const double epsilon)
+{
+    int itr;
+    double pnt, drvt;
+
+    itr = 0;
+    do
+    {
+        ++itr;
+
+        pnt = (left_bound + right_bound) / 2.0;
+        drvt = df(pnt);
+
+        if (drvt > 0.0)
+            right_bound = pnt;
+        else
+            left_bound = pnt;
+    }
+    while ((drvt > epsilon || (right_bound - left_bound) > epsilon) &&
+        itr < MAX_ITERATIONS);
+
+    return (left_bound + right_bound) / 2.0;
+}
+
 double golden_section_one(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
