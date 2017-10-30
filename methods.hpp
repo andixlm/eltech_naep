@@ -22,5 +22,8 @@ double fibonacci_one(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
 double fibonacci_two(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
+    
+double newton(double (* df)(const double), double (* ddf)(const double),
+    const double initial, const double epsilon);
 
 #endif

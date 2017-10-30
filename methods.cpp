@@ -304,3 +304,25 @@ double fibonacci_two(double (* f)(const double),
 
     return sym_pnt;
 }
+
+double newton(double (* df)(const double), double (* ddf)(const double),
+    const double initial, const double epsilon)
+{
+    int itr;
+    double curr, prev;
+
+    itr = 0;
+    curr = initial;
+
+    do
+    {
+        ++itr;
+
+        prev = curr;
+        curr = prev - df(prev) / ddf(prev);
+    }
+    while (fabs(curr - prev) > epsilon && df(curr) > epsilon &&
+        itr < MAX_ITERATIONS);
+
+    return curr;
+}
