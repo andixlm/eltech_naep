@@ -33,4 +33,7 @@ double interpolation_extrapolation(double (* f)(const double),
 double powell(double (* f)(const double),
     double& left_bound, double& right_bound, const double epsilon);
 
+void sven_dsc(double (* f)(const double), const double initital,
+    double& left_bound, double& cntr_ref, double& right_bound);
+
 #endif

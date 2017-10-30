@@ -475,3 +475,45 @@ double powell(double (* f)(const double),
 
     return (cntr + aprx) / 2.0;
 }
+
+void sven_dsc(double (* f)(const double), const double initial,
+    double& left_bound, double& cntr_ref, double& right_bound)
+{
+    double step;
+    double prev, curr, next, cntr;
+
+    step = 0.01;
+
+    if (initial != 0.0)
+        step *= fabs(initial);
+
+    if (f(initial + step) > f(initial))
+        step = -step;
+
+    curr = initial;
+    next = initial + step;
+
+    while (f(curr) > f(next))
+    {
+        step *= 2.0;
+
+        prev = curr;
+        curr = next;
+        next += step;
+    }
+
+    cntr = (curr + next) / 2.0;
+
+    if (f(cntr) < f(curr))
+    {
+        left_bound = curr;
+        cntr_ref = cntr;
+        right_bound = next;
+    }
+    else
+    {
+        left_bound = prev;
+        cntr_ref = curr;
+        right_bound = cntr;
+    }
+}
