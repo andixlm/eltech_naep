@@ -13,7 +13,7 @@ std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
     std::vector<double> gradient;
     std::vector<double> auxiliary = std::vector<double>(x);
 
-    for (int idx = 0; idx < auxiliary.size(); ++idx)
+    for (unsigned idx = 0; idx < auxiliary.size(); ++idx)
     {
         auxiliary[idx] += EPSILON;
         gradient.push_back((f(auxiliary) - f(x)) / EPSILON);
@@ -59,6 +59,6 @@ void convert_dimensions(const double alpha,
     const std::vector<double>& initial, const std::vector<double>& direction,
     std::vector<double>& dst)
 {
-    for (int idx = 0; idx < initial.size(); ++idx)
+    for (unsigned idx = 0; idx < initial.size(); ++idx)
         dst[idx] = initial[idx] + alpha * direction[idx];
 }
