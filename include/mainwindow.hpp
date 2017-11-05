@@ -55,6 +55,8 @@ private:
     mu::Parser mParser;
 
     void configureWindow();
+
+    void setFunctionCallback();
 };
 
 #endif // MAINWINDOW_HPP

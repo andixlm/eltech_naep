@@ -48,6 +48,8 @@ void MainWindow::configureWindow()
     mMathFunctionLayout.addWidget(&mMathFunctionButton);
     mMathFunctionLayout.setAlignment(&mMathFunctionButton, Qt::AlignRight);
     mMathFunctionButton.setText(MATH_FUNCTION_BUTTON_TEXT);
+    connect(&mMathFunctionButton, &QPushButton::clicked,
+            this, &MainWindow::setFunctionCallback);
 
     /* Info layout */
     mMainLayout.addLayout(&mInfoLayout);
@@ -60,4 +62,9 @@ void MainWindow::configureWindow()
     mLogLabel.setText(LOG_LABEL);
 
     mLogLayout.addWidget(&mLog);
+}
+
+void MainWindow::setFunctionCallback()
+{
+
 }
