@@ -4,9 +4,12 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QMainWindow>
+#include <QPushButton>
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QWidget>
+
+#include "muParser.h"
 
 class MainWindow : public QMainWindow
 {
@@ -19,6 +22,7 @@ public:
 private:
     constexpr static const char* MATH_FUNCTION_LABEL = "Math function:";
     static const unsigned MATH_FUNCTION_HEIGHT = 24;
+    constexpr static const char* MATH_FUNCTION_BUTTON_TEXT = "Set function";
 
     constexpr static const char* LOG_LABEL = "Log:";
 
@@ -31,12 +35,15 @@ private:
     QVBoxLayout mMathFunctionLayout;
     QLabel mMathFunctionLabel;
     QTextEdit mMathFunction;
+    QPushButton mMathFunctionButton;
 
     QVBoxLayout mInfoLayout;
 
     QVBoxLayout mLogLayout;
     QLabel mLogLabel;
     QTextEdit mLog;
+
+    mu::Parser mParser;
 
     void configureWindow();
 };

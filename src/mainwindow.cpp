@@ -35,6 +35,10 @@ void MainWindow::configureWindow()
                                 QSizePolicy::Policy::Fixed);
     mMathFunction.setFixedHeight(MATH_FUNCTION_HEIGHT);
 
+    mMathFunctionLayout.addWidget(&mMathFunctionButton);
+    mMathFunctionLayout.setAlignment(&mMathFunctionButton, Qt::AlignRight);
+    mMathFunctionButton.setText(MATH_FUNCTION_BUTTON_TEXT);
+
     /* Info layout */
     mMainLayout.addLayout(&mInfoLayout);
 
