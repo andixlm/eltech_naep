@@ -21,24 +21,28 @@ void MainWindow::configureWindow()
     /* Parameters layout */
     mMainLayout.addLayout(&mParametersLayout);
 
-    // Math function
+    // Function block
     mParametersLayout.addLayout(&mMathLayout);
     mParametersLayout.setAlignment(&mMathLayout, Qt::AlignTop);
 
+    // Function label
     mMathLayout.addWidget(&mFunctionLabel);
     mMathLayout.setAlignment(&mFunctionLabel, Qt::AlignTop);
     mFunctionLabel.setText(FUNCTION_LABEL);
 
+    // Function expression
     mMathLayout.addWidget(&mFunctionText);
     mMathLayout.setAlignment(&mFunctionText, Qt::AlignTop);
     mFunctionText.setSizePolicy(QSizePolicy::Policy::Fixed,
                                 QSizePolicy::Policy::Fixed);
     mFunctionText.setFixedHeight(FUNCTION_TEXT_HEIGHT);
 
+    // Variables label
     mMathLayout.addWidget(&mVariablesCountLabel);
     mMathLayout.setAlignment(&mVariablesCountLabel, Qt::AlignTop);
     mVariablesCountLabel.setText(VARIABLES_COUNT_LABEL);
 
+    // Variables spinner
     mMathLayout.addWidget(&mVariablesCountSpinner);
     mMathLayout.setAlignment(&mVariablesCountSpinner, Qt::AlignTop);
     mVariablesCountSpinner.setMinimum(VARIABLES_COUNT_MIN);
@@ -48,6 +52,7 @@ void MainWindow::configureWindow()
             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this, &MainWindow::variablesCountSpinnerCallback);
 
+    // Button to set function
     mMathLayout.addWidget(&mSetFunctionButton);
     mMathLayout.setAlignment(&mSetFunctionButton, Qt::AlignRight);
     mSetFunctionButton.setText(SET_FUNCTION_BUTTON_LABEL);
@@ -57,13 +62,15 @@ void MainWindow::configureWindow()
     /* Info layout */
     mMainLayout.addLayout(&mInfoLayout);
 
-    // Log output
+    // Log block
     mInfoLayout.addLayout(&mLogLayout);
     mInfoLayout.setAlignment(&mLogLayout, Qt::AlignTop);
 
+    // Log label
     mLogLayout.addWidget(&mLogLabel);
     mLogLabel.setText(LOG_LABEL);
 
+    // Log text
     mLogLayout.addWidget(&mLogText);
 }
 
