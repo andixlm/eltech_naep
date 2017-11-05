@@ -35,6 +35,16 @@ void MainWindow::configureWindow()
                                 QSizePolicy::Policy::Fixed);
     mMathFunction.setFixedHeight(MATH_FUNCTION_HEIGHT);
 
+    mMathFunctionLayout.addWidget(&mVariablesCountLabel);
+    mMathFunctionLayout.setAlignment(&mVariablesCountLabel, Qt::AlignTop);
+    mVariablesCountLabel.setText(VARIABLES_COUNT_LABEL);
+
+    mMathFunctionLayout.addWidget(&mVariablesCount);
+    mMathFunctionLayout.setAlignment(&mVariablesCount, Qt::AlignTop);
+    mVariablesCount.setMinimum(VARIABLES_COUNT_MIN);
+    mVariablesCount.setMaximum(VARIABLES_COUNT_MAX);
+    mVariablesCount.setValue(VARIABLES_COUNT_DEFAULT);
+
     mMathFunctionLayout.addWidget(&mMathFunctionButton);
     mMathFunctionLayout.setAlignment(&mMathFunctionButton, Qt::AlignRight);
     mMathFunctionButton.setText(MATH_FUNCTION_BUTTON_TEXT);

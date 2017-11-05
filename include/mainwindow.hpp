@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QMainWindow>
 #include <QPushButton>
+#include <QSpinBox>
 #include <QTextEdit>
 #include <QVBoxLayout>
 #include <QWidget>
@@ -22,6 +23,12 @@ public:
 private:
     constexpr static const char* MATH_FUNCTION_LABEL = "Math function:";
     static const unsigned MATH_FUNCTION_HEIGHT = 24;
+
+    constexpr static const char* VARIABLES_COUNT_LABEL = "Variables:";
+    static const unsigned VARIABLES_COUNT_MIN = 1;
+    static const unsigned VARIABLES_COUNT_MAX = 99;
+    static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
+
     constexpr static const char* MATH_FUNCTION_BUTTON_TEXT = "Set function";
 
     constexpr static const char* LOG_LABEL = "Log:";
@@ -35,6 +42,8 @@ private:
     QVBoxLayout mMathFunctionLayout;
     QLabel mMathFunctionLabel;
     QTextEdit mMathFunction;
+    QLabel mVariablesCountLabel;
+    QSpinBox mVariablesCount;
     QPushButton mMathFunctionButton;
 
     QVBoxLayout mInfoLayout;
