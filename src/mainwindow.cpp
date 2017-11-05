@@ -44,6 +44,9 @@ void MainWindow::configureWindow()
     mVariablesCountSpinner.setMinimum(VARIABLES_COUNT_MIN);
     mVariablesCountSpinner.setMaximum(VARIABLES_COUNT_MAX);
     mVariablesCountSpinner.setValue(VARIABLES_COUNT_DEFAULT);
+    connect(&mVariablesCountSpinner,
+            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+            this, &MainWindow::variablesCountSpinnerCallback);
 
     mMathLayout.addWidget(&mSetFunctionButton);
     mMathLayout.setAlignment(&mSetFunctionButton, Qt::AlignRight);
@@ -65,6 +68,11 @@ void MainWindow::configureWindow()
 }
 
 void MainWindow::setFunctionButtonCallback()
+{
+
+}
+
+void MainWindow::variablesCountSpinnerCallback(int value)
 {
 
 }

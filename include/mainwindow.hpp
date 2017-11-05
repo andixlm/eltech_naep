@@ -57,6 +57,7 @@ private:
     void configureWindow();
 
     void setFunctionButtonCallback();
+    void variablesCountSpinnerCallback(int value);
 };
 
 #endif // MAINWINDOW_HPP
