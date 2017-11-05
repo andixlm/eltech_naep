@@ -76,7 +76,7 @@ void MainWindow::configureWindow()
 
 void MainWindow::setFunctionButtonCallback()
 {
-
+    mParser.SetExpr(mFunctionText.toPlainText().toStdWString());
 }
 
 void MainWindow::variablesCountSpinnerCallback(int value)
