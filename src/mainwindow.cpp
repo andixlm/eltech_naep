@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget* parent)
       mMainLayout(&mMainWidget)
 {
     setCentralWidget(&mMainWidget);
+    mMainLayout.setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
+
     configureWindow();
 }
 
@@ -16,8 +18,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::configureWindow()
 {
-    mMainLayout.setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
-
     /* Parameters layout */
     mMainLayout.addLayout(&mParametersLayout);
 
