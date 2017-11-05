@@ -1,4 +1,6 @@
+#pragma GCC diagnostic ignored "-Wswitch"
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
+#pragma GCC diagnostic ignored "-Wunknown-pragmas"
 
 /*
                  __________                                      
@@ -1386,10 +1388,10 @@ namespace mu
           // The tests equations never result in infinity, if they do thats a bug.
           // reference:
           // http://sourceforge.net/projects/muparser/forums/forum/462843/topic/5037825
-          #pragma warning(push)
-          #pragma warning(disable:4127)
+//          #pragma warning(push)
+//          #pragma warning(disable:4127)
 		  if (std::numeric_limits<value_type>::has_infinity)
-          #pragma warning(pop)
+//          #pragma warning(pop)
 		  {
             bCloseEnough &= (fabs(fVal[i]) != numeric_limits<value_type>::infinity());
 		  }

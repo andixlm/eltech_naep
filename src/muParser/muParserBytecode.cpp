@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wswitch"
 #pragma GCC diagnostic ignored "-Wdeprecated-declarations"
 
 /*
