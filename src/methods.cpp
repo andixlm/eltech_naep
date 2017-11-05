@@ -16,7 +16,7 @@ void sven_value(double (*f)(const double), const double initial,
     if (f(initial + step) > f(initial))
         step = -step;
 
-    curr = initial;
+    prev = curr = initial;
     next = initial + step;
 
     while (f(curr) > f(next))
@@ -490,7 +490,7 @@ void sven_dsc(double (*f)(const double), const double initial,
     if (f(initial + step) > f(initial))
         step = -step;
 
-    curr = initial;
+    prev = curr = initial;
     next = initial + step;
 
     while (f(curr) > f(next))
@@ -523,6 +523,8 @@ double dsc(double (*f)(double),
 {
     int itr;
     double aprx;
+
+    itr = 0;
 
     do
     {
