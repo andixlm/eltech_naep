@@ -2,7 +2,7 @@
 
 #include "methods.hpp"
 
-void sven_value(double (* f)(const double), const double initial,
+void sven_value(double (*f)(const double), const double initial,
     double& left_bound, double& right_bound)
 {
     double step;
@@ -40,7 +40,7 @@ void sven_value(double (* f)(const double), const double initial,
     }
 }
 
-void sven_derivative(double (* df)(const double), const double initial,
+void sven_derivative(double (*df)(const double), const double initial,
     double& left_bound, double& right_bound)
 {
     double step;
@@ -77,7 +77,7 @@ void sven_derivative(double (* df)(const double), const double initial,
     }
 }
 
-double dichotomy(double (* f)(const double),
+double dichotomy(double (*f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr;
@@ -104,7 +104,7 @@ double dichotomy(double (* f)(const double),
     return (left_bound + right_bound) / 2.0;
 }
 
-double bolzano(double (* df)(const double),
+double bolzano(double (*df)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr;
@@ -129,7 +129,7 @@ double bolzano(double (* df)(const double),
     return (left_bound + right_bound) / 2.0;
 }
 
-double golden_section_one(double (* f)(const double),
+double golden_section_one(double (*f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr;
@@ -164,7 +164,7 @@ double golden_section_one(double (* f)(const double),
     return (left_bound + right_bound) / 2.0;
 }
 
-double golden_section_two(double (* f)(const double),
+double golden_section_two(double (*f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr;
@@ -220,7 +220,7 @@ static int get_iterations(const double rel, double& prev_ref, double& curr_ref)
     return itr;
 }
 
-double fibonacci_one(double (* f)(const double),
+double fibonacci_one(double (*f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr, total_itrs;
@@ -269,7 +269,7 @@ double fibonacci_one(double (* f)(const double),
         return (lambda + right_bound) / 2.0;
 }
 
-double fibonacci_two(double (* f)(const double),
+double fibonacci_two(double (*f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr, total_itrs;
@@ -305,7 +305,7 @@ double fibonacci_two(double (* f)(const double),
     return sym_pnt;
 }
 
-double newton(double (* df)(const double), double (* ddf)(const double),
+double newton(double (*df)(const double), double (*ddf)(const double),
     const double initial, const double epsilon)
 {
     int itr;
@@ -327,7 +327,7 @@ double newton(double (* df)(const double), double (* ddf)(const double),
     return curr;
 }
 
-double linear_interpolation(double (* df)(const double),
+double linear_interpolation(double (*df)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr;
@@ -352,7 +352,7 @@ double linear_interpolation(double (* df)(const double),
     return curr;
 }
 
-static double get_approximation_one(double (* f)(const double),
+static double get_approximation_one(double (*f)(const double),
     const double a, const double b, const double c)
 {
     return (1.0 / 2.0) *
@@ -368,7 +368,7 @@ static double get_approximation_one(double (* f)(const double),
         );
 }
 
-static double get_approximation_two(double (* f)(const double),
+static double get_approximation_two(double (*f)(const double),
     const double a, const double b, const double c)
 {
     return (a + b) / 2.0 + (1.0 / 2.0) *
@@ -380,7 +380,7 @@ static double get_approximation_two(double (* f)(const double),
         );
 }
 
-static double get_approximation_three(double (* f)(const double),
+static double get_approximation_three(double (*f)(const double),
     const double a, const double b, const double c)
 {
     return b + (1.0 / 2.0) *
@@ -394,7 +394,7 @@ static double get_approximation_three(double (* f)(const double),
         );
 }
 
-static double get_approximation_four(double (* f)(const double),
+static double get_approximation_four(double (*f)(const double),
     const double a, const double b, const double c)
 {
     return b + (1.0 / 2.0) *
@@ -402,7 +402,7 @@ static double get_approximation_four(double (* f)(const double),
         (f(a) - 2.0 * f(b) + f(c));
 }
 
-double interpolation_extrapolation(double (* f)(const double),
+double interpolation_extrapolation(double (*f)(const double),
     const double initial, const double epsilon)
 {
     int itr;
@@ -433,7 +433,7 @@ double interpolation_extrapolation(double (* f)(const double),
     return (center + aprx) / 2.0;
 }
 
-double powell(double (* f)(const double),
+double powell(double (*f)(const double),
     double& left_bound, double& right_bound, const double epsilon)
 {
     int itr;
@@ -476,7 +476,7 @@ double powell(double (* f)(const double),
     return (cntr + aprx) / 2.0;
 }
 
-void sven_dsc(double (* f)(const double), const double initial,
+void sven_dsc(double (*f)(const double), const double initial,
     double& left_bound, double& cntr_ref, double& right_bound)
 {
     double step;
@@ -518,7 +518,7 @@ void sven_dsc(double (* f)(const double), const double initial,
     }
 }
 
-double dsc(double (* f)(double),
+double dsc(double (*f)(double),
     double& left_bound, double& cntr, double& right_bound, const double epsilon)
 {
     int itr;

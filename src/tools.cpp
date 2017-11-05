@@ -7,7 +7,7 @@
  * Returns gradient of function "f" of vector "x".
  * Checked: yes.
  */
-std::vector<double> find_gradient(double (* f)(const std::vector<double>&),
+std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x)
 {
     std::vector<double> gradient;
@@ -29,7 +29,7 @@ std::vector<double> find_gradient(double (* f)(const std::vector<double>&),
  * Returns antigradient of function "f" of vector "x".
  * Checked: yes.
  */
-std::vector<double> find_antigradient(double (* f)(const std::vector<double>&),
+std::vector<double> find_antigradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x)
 {
     std::vector<double> auxiliary = find_gradient(f, std::move(x));
