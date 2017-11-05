@@ -21,17 +21,19 @@ public:
     ~MainWindow();
 
 private:
-    constexpr static const char* MATH_FUNCTION_LABEL = "Math function:";
-    static const unsigned MATH_FUNCTION_HEIGHT = 24;
+    constexpr static const char* FUNCTION_LABEL = "Math function:";
+    constexpr static const unsigned FUNCTION_TEXT_HEIGHT = 24;
 
     constexpr static const char* VARIABLES_COUNT_LABEL = "Variables:";
-    static const unsigned VARIABLES_COUNT_MIN = 1;
-    static const unsigned VARIABLES_COUNT_MAX = 99;
-    static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
+    constexpr static const unsigned VARIABLES_COUNT_MIN = 1;
+    constexpr static const unsigned VARIABLES_COUNT_MAX = 99;
+    constexpr static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
 
-    constexpr static const char* MATH_FUNCTION_BUTTON_TEXT = "Set function";
+    constexpr static const char* SET_FUNCTION_BUTTON_LABEL = "Set function";
 
     constexpr static const char* LOG_LABEL = "Log:";
+
+    mu::Parser mParser;
 
     QWidget mMainWidget;
 
@@ -39,24 +41,22 @@ private:
 
     QVBoxLayout mParametersLayout;
 
-    QVBoxLayout mMathFunctionLayout;
-    QLabel mMathFunctionLabel;
-    QTextEdit mMathFunction;
+    QVBoxLayout mMathLayout;
+    QLabel mFunctionLabel;
+    QTextEdit mFunctionText;
     QLabel mVariablesCountLabel;
-    QSpinBox mVariablesCount;
-    QPushButton mMathFunctionButton;
+    QSpinBox mVariablesCountSpinner;
+    QPushButton mSetFunctionButton;
 
     QVBoxLayout mInfoLayout;
 
     QVBoxLayout mLogLayout;
     QLabel mLogLabel;
-    QTextEdit mLog;
-
-    mu::Parser mParser;
+    QTextEdit mLogText;
 
     void configureWindow();
 
-    void setFunctionCallback();
+    void setFunctionButtonCallback();
 };
 
 #endif // MAINWINDOW_HPP

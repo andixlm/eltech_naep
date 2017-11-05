@@ -21,35 +21,35 @@ void MainWindow::configureWindow()
     /* Parameters layout */
     mMainLayout.addLayout(&mParametersLayout);
 
-    // Math formula
-    mParametersLayout.addLayout(&mMathFunctionLayout);
-    mParametersLayout.setAlignment(&mMathFunctionLayout, Qt::AlignTop);
+    // Math function
+    mParametersLayout.addLayout(&mMathLayout);
+    mParametersLayout.setAlignment(&mMathLayout, Qt::AlignTop);
 
-    mMathFunctionLayout.addWidget(&mMathFunctionLabel);
-    mMathFunctionLayout.setAlignment(&mMathFunctionLabel, Qt::AlignTop);
-    mMathFunctionLabel.setText(MATH_FUNCTION_LABEL);
+    mMathLayout.addWidget(&mFunctionLabel);
+    mMathLayout.setAlignment(&mFunctionLabel, Qt::AlignTop);
+    mFunctionLabel.setText(FUNCTION_LABEL);
 
-    mMathFunctionLayout.addWidget(&mMathFunction);
-    mMathFunctionLayout.setAlignment(&mMathFunction, Qt::AlignTop);
-    mMathFunction.setSizePolicy(QSizePolicy::Policy::Fixed,
+    mMathLayout.addWidget(&mFunctionText);
+    mMathLayout.setAlignment(&mFunctionText, Qt::AlignTop);
+    mFunctionText.setSizePolicy(QSizePolicy::Policy::Fixed,
                                 QSizePolicy::Policy::Fixed);
-    mMathFunction.setFixedHeight(MATH_FUNCTION_HEIGHT);
+    mFunctionText.setFixedHeight(FUNCTION_TEXT_HEIGHT);
 
-    mMathFunctionLayout.addWidget(&mVariablesCountLabel);
-    mMathFunctionLayout.setAlignment(&mVariablesCountLabel, Qt::AlignTop);
+    mMathLayout.addWidget(&mVariablesCountLabel);
+    mMathLayout.setAlignment(&mVariablesCountLabel, Qt::AlignTop);
     mVariablesCountLabel.setText(VARIABLES_COUNT_LABEL);
 
-    mMathFunctionLayout.addWidget(&mVariablesCount);
-    mMathFunctionLayout.setAlignment(&mVariablesCount, Qt::AlignTop);
-    mVariablesCount.setMinimum(VARIABLES_COUNT_MIN);
-    mVariablesCount.setMaximum(VARIABLES_COUNT_MAX);
-    mVariablesCount.setValue(VARIABLES_COUNT_DEFAULT);
+    mMathLayout.addWidget(&mVariablesCountSpinner);
+    mMathLayout.setAlignment(&mVariablesCountSpinner, Qt::AlignTop);
+    mVariablesCountSpinner.setMinimum(VARIABLES_COUNT_MIN);
+    mVariablesCountSpinner.setMaximum(VARIABLES_COUNT_MAX);
+    mVariablesCountSpinner.setValue(VARIABLES_COUNT_DEFAULT);
 
-    mMathFunctionLayout.addWidget(&mMathFunctionButton);
-    mMathFunctionLayout.setAlignment(&mMathFunctionButton, Qt::AlignRight);
-    mMathFunctionButton.setText(MATH_FUNCTION_BUTTON_TEXT);
-    connect(&mMathFunctionButton, &QPushButton::clicked,
-            this, &MainWindow::setFunctionCallback);
+    mMathLayout.addWidget(&mSetFunctionButton);
+    mMathLayout.setAlignment(&mSetFunctionButton, Qt::AlignRight);
+    mSetFunctionButton.setText(SET_FUNCTION_BUTTON_LABEL);
+    connect(&mSetFunctionButton, &QPushButton::clicked,
+            this, &MainWindow::setFunctionButtonCallback);
 
     /* Info layout */
     mMainLayout.addLayout(&mInfoLayout);
@@ -61,10 +61,10 @@ void MainWindow::configureWindow()
     mLogLayout.addWidget(&mLogLabel);
     mLogLabel.setText(LOG_LABEL);
 
-    mLogLayout.addWidget(&mLog);
+    mLogLayout.addWidget(&mLogText);
 }
 
-void MainWindow::setFunctionCallback()
+void MainWindow::setFunctionButtonCallback()
 {
 
 }
