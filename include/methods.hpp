@@ -1,10 +1,11 @@
 #ifndef METHODS
 #define METHODS
 
-#define MAX_ITERATIONS 30
 
 namespace Methods
 {
+const unsigned MAX_ITERATIONS = 30;
+
 void sven_value(double (*f)(const double), const double initial,
                 double& left_bound, double& right_bound);
 void sven_derivative(double (*df)(const double), const double initial,
