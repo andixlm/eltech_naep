@@ -26,7 +26,7 @@ private:
 
     constexpr static const char* VARIABLES_COUNT_LABEL = "Variables:";
     constexpr static const unsigned VARIABLES_COUNT_MIN = 1;
-    constexpr static const unsigned VARIABLES_COUNT_MAX = 99;
+    constexpr static const unsigned VARIABLES_COUNT_MAX = 10;
     constexpr static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
 
     constexpr static const char* SET_FUNCTION_BUTTON_LABEL = "Set function";
