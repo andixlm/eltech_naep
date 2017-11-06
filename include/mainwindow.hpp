@@ -61,8 +61,13 @@ private:
     std::vector<double> mVariables;
     unsigned mVariablesCount;
 
+    std::vector<double> mPosition;
+    std::vector<double> mDirection;
+
     void configureWindow();
     void configureParser();
+
+    double evaluateFunction(const double alpha);
 
     void setFunctionButtonCallback();
     void variablesCountSpinnerCallback(int value);

@@ -1,4 +1,5 @@
 #include "mainwindow.hpp"
+#include "tools.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
@@ -84,6 +85,13 @@ void MainWindow::configureParser()
     for (unsigned idx = 0; idx < mVariablesCount; ++idx)
         mParser.DefineVar((QString("x%1").arg(idx)).toStdWString(),
                           &mVariables[idx]);
+}
+
+double MainWindow::evaluateFunction(const double alpha)
+{
+    Tools::convert_dimensions(alpha, mPosition, mDirection, mVariables);
+
+    return mParser.Eval();
 }
 
 void MainWindow::setFunctionButtonCallback()

@@ -1,6 +1,7 @@
 #ifndef METHODS
 #define METHODS
 
+#include "mainwindow.hpp"
 
 namespace Methods
 {
