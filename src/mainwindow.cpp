@@ -93,10 +93,12 @@ void MainWindow::setFunctionButtonCallback()
     try
     {
         mParser.Eval();
+
+        mLogText.append(INFO_MSG + QString(FUNCTION_IS_SET_MSG));
     }
     catch (mu::Parser::exception_type& exc)
     {
-        mLogText.append(QString::fromWCharArray(exc.GetMsg().c_str()));
+        mLogText.append(ERROR_MSG + QString::fromWCharArray(exc.GetMsg().c_str()));
     }
 }
 

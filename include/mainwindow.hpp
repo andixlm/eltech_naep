@@ -21,7 +21,11 @@ public:
     ~MainWindow();
 
 private:
+    constexpr static const char* INFO_MSG = "INFO: ";
+    constexpr static const char* ERROR_MSG = "ERROR: ";
+
     constexpr static const char* FUNCTION_LABEL = "Math function:";
+    constexpr static const char* FUNCTION_IS_SET_MSG = "Function is set";
     constexpr static const unsigned FUNCTION_TEXT_HEIGHT = 24;
 
     constexpr static const char* VARIABLES_COUNT_LABEL = "Variables:";
