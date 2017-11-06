@@ -391,22 +391,6 @@ static double get_approximation_two(double (*f)(const double),
         );
 }
 
-static double get_approximation_three(double (*f)(const double),
-                                      const double a,
-                                      const double b,
-                                      const double c)
-{
-    return b + (1.0 / 2.0) *
-        (
-            pow(b - a, 2.0) * (f(b) - f(c)) -
-            pow(b - c, 2.0) * (f(b) - f(a))
-        ) /
-        (
-            (b - a) * (f(b) - f(c)) -
-            (b - c) * (f(b) - f(a))
-        );
-}
-
 static double get_approximation_four(double (*f)(const double),
                                      const double a,
                                      const double b,
