@@ -24,12 +24,12 @@ private:
 
     constexpr static const char* FUNCTION_LABEL = "Math function:";
     constexpr static const char* FUNCTION_IS_SET_MSG = "Function is set";
-    constexpr static const unsigned FUNCTION_TEXT_HEIGHT = 24;
+    static const unsigned FUNCTION_TEXT_HEIGHT = 24;
 
     constexpr static const char* VARIABLES_COUNT_LABEL = "Variables:";
-    constexpr static const unsigned VARIABLES_COUNT_MIN = 1;
-    constexpr static const unsigned VARIABLES_COUNT_MAX = 10;
-    constexpr static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
+    static const unsigned VARIABLES_COUNT_MIN = 1;
+    static const unsigned VARIABLES_COUNT_MAX = 10;
+    static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
 
     constexpr static const char* SET_FUNCTION_BUTTON_LABEL = "Set function";
 
