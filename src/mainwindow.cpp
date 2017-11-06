@@ -1,4 +1,5 @@
 #include "mainwindow.hpp"
+#include "parser.hpp"
 #include "tools.hpp"
 
 MainWindow::MainWindow(QWidget* parent)
@@ -76,31 +77,14 @@ void MainWindow::configureWindow()
     mLogLayout.addWidget(&mLogText);
 }
 
-void MainWindow::configureParser()
-{
-    mParser.SetExpr(mFunctionText.toPlainText().toStdWString());
-
-    mParser.ClearVar();
-    mVariables = std::vector<double>(mVariablesCount);
-    for (unsigned idx = 0; idx < mVariablesCount; ++idx)
-        mParser.DefineVar((QString("x%1").arg(idx)).toStdWString(),
-                          &mVariables[idx]);
-}
-
-double MainWindow::evaluateFunction(const double alpha)
-{
-    Tools::convert_dimensions(alpha, mPosition, mDirection, mVariables);
-
-    return mParser.Eval();
-}
-
 void MainWindow::setFunctionButtonCallback()
 {
-    configureParser();
+    Parser::configureParser(mFunctionText.toPlainText().toStdWString(),
+                            mVariablesCount);
 
     try
     {
-        mParser.Eval();
+        Parser::sParser.Eval();
 
         mLogText.append(INFO_MSG + QString(FUNCTION_IS_SET_MSG));
     }

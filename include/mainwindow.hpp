@@ -10,8 +10,6 @@
 #include <QVBoxLayout>
 #include <QWidget>
 
-#include "muParser.h"
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -56,18 +54,9 @@ private:
     QLabel mLogLabel;
     QTextEdit mLogText;
 
-    mu::Parser mParser;
-
-    std::vector<double> mVariables;
     unsigned mVariablesCount;
 
-    std::vector<double> mPosition;
-    std::vector<double> mDirection;
-
     void configureWindow();
-    void configureParser();
-
-    double evaluateFunction(const double alpha);
 
     void setFunctionButtonCallback();
     void variablesCountSpinnerCallback(int value);
