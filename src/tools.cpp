@@ -7,7 +7,7 @@
  * Returns gradient of function "f" of vector "x".
  * Checked: yes.
  */
-std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
+std::vector<double> Tools::find_gradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x)
 {
     std::vector<double> gradient;
@@ -29,7 +29,7 @@ std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
  * Returns antigradient of function "f" of vector "x".
  * Checked: yes.
  */
-std::vector<double> find_antigradient(double (*f)(const std::vector<double>&),
+std::vector<double> Tools::find_antigradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x)
 {
     std::vector<double> auxiliary = find_gradient(f, std::move(x));
@@ -45,7 +45,7 @@ std::vector<double> find_antigradient(double (*f)(const std::vector<double>&),
  * Returns norm of vector "x".
  * Checked: yes.
  */
-double find_norm(const std::vector<double>& x)
+double Tools::find_norm(const std::vector<double>& x)
 {
     double result = 0.0;
 
@@ -55,7 +55,7 @@ double find_norm(const std::vector<double>& x)
     return sqrt(result);
 }
 
-void convert_dimensions(const double alpha,
+void Tools::convert_dimensions(const double alpha,
     const std::vector<double>& initial, const std::vector<double>& direction,
     std::vector<double>& dst)
 {
