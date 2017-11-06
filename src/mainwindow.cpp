@@ -4,14 +4,12 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       mMainWidget(this),
       mMainLayout(&mMainWidget),
-      mVariables(VARIABLES_COUNT_MAX),
       mVariablesCount(VARIABLES_COUNT_DEFAULT)
 {
     setCentralWidget(&mMainWidget);
     mMainLayout.setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
 
     configureWindow();
-    configureParser();
 }
 
 MainWindow::~MainWindow()
@@ -79,14 +77,27 @@ void MainWindow::configureWindow()
 
 void MainWindow::configureParser()
 {
-    for (unsigned idx = 0; idx < mVariables.size(); ++idx)
+    mParser.SetExpr(mFunctionText.toPlainText().toStdWString());
+
+    mParser.ClearVar();
+    mVariables = std::vector<double>(mVariablesCount);
+    for (unsigned idx = 0; idx < mVariablesCount; ++idx)
         mParser.DefineVar((QString("x%1").arg(idx)).toStdWString(),
                           &mVariables[idx]);
 }
 
 void MainWindow::setFunctionButtonCallback()
 {
-    mParser.SetExpr(mFunctionText.toPlainText().toStdWString());
+    configureParser();
+
+    try
+    {
+        mParser.Eval();
+    }
+    catch (mu::Parser::exception_type& exc)
+    {
+        mLogText.append(QString::fromWCharArray(exc.GetMsg().c_str()));
+    }
 }
 
 void MainWindow::variablesCountSpinnerCallback(int value)
