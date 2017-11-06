@@ -81,7 +81,7 @@ double Methods::dichotomy(double (*f)(const double),
                           double& left_bound, double& right_bound,
                           const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double delta;
     double lambda, mu;
 
@@ -109,7 +109,7 @@ double Methods::bolzano(double (*df)(const double),
                         double& left_bound, double& right_bound,
                         const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double pnt, drvt;
 
     itr = 0;
@@ -135,7 +135,7 @@ double Methods::golden_section_one(double (*f)(const double),
                                    double& left_bound, double& right_bound,
                                    const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double lambda, mu;
 
     itr = 0;
@@ -171,7 +171,7 @@ double Methods::golden_section_two(double (*f)(const double),
                                    double& left_bound, double& right_bound,
                                    const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double pnt, sym_pnt;
 
     itr = 0;
@@ -314,7 +314,7 @@ double Methods::fibonacci_two(double (*f)(const double),
 double Methods::newton(double (*df)(const double), double (*ddf)(const double),
                        const double initial, const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double curr, prev;
 
     itr = 0;
@@ -337,7 +337,7 @@ double Methods::linear_interpolation(double (*df)(const double),
                                      double& left_bound, double& right_bound,
                                      const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double curr;
 
     itr = 0;
@@ -421,7 +421,7 @@ double Methods::interpolation_extrapolation(double (*f)(const double),
                                             const double initial,
                                             const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double aprx, step;
     double left, center, right;
 
@@ -453,7 +453,7 @@ double Methods::powell(double (*f)(const double),
                        double& left_bound, double& right_bound,
                        const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double cntr, aprx;
 
     itr = 0;
@@ -539,7 +539,7 @@ double Methods::dsc(double (*f)(double),
                     double& left_bound, double& cntr, double& right_bound,
                     const double epsilon)
 {
-    int itr;
+    unsigned itr;
     double aprx;
 
     itr = 0;
