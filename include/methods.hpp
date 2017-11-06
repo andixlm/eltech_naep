@@ -3,6 +3,8 @@
 
 #define MAX_ITERATIONS 30
 
+namespace Methods
+{
 void sven_value(double (*f)(const double), const double initial,
     double& left_bound, double& right_bound);
 void sven_derivative(double (*df)(const double), const double initial,
@@ -37,5 +39,6 @@ void sven_dsc(double (*f)(const double), const double initital,
     double& left_bound, double& cntr_ref, double& right_bound);
 double dsc(double (*f)(double),
     double& left_bound, double& cntr, double& right_bound, const double epsilon);
+}
 
 #endif
