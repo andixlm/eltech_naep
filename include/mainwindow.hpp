@@ -34,6 +34,7 @@ private:
     constexpr static const char* LOG_LABEL = "Log:";
 
     unsigned mVariablesCount;
+    std::vector<double> mVariables;
 
     mu::Parser mParser;
 

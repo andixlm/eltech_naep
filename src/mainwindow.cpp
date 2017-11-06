@@ -4,6 +4,7 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       mMainWidget(this),
       mMainLayout(&mMainWidget),
+      mVariables(VARIABLES_COUNT_MAX),
       mVariablesCount(VARIABLES_COUNT_DEFAULT)
 {
     setCentralWidget(&mMainWidget);
