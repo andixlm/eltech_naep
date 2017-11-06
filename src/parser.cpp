@@ -24,9 +24,18 @@ void Parser::configureParser(const std::wstring& expression,
                           &sVariables[idx]);
 }
 
-double Parser::evaluateFunction(const double alpha)
+double Parser::evaluateFunctionMono(const double alpha)
 {
     Tools::convert_dimensions(alpha, sPosition, sDirection, sVariables);
+
+    return sParser.Eval();
+}
+
+double Parser::evaluateFunctionMulti(const std::vector<double>& x)
+{
+    // TODO: Check if vectors assignment broke previosly set addresses.
+    for (unsigned idx = 0; idx < x.size(); ++idx)
+        sVariables[idx] = x[idx];
 
     return sParser.Eval();
 }

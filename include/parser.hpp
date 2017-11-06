@@ -15,7 +15,8 @@ public:
     static void configureParser(const std::wstring& expression,
                                 unsigned variablesCount);
 
-    static double evaluateFunction(const double alpha);
+    static double evaluateFunctionMono(const double alpha);
+    static double evaluateFunctionMulti(const std::vector<double>& x);
 };
 
 #endif // PARSER_HPP
