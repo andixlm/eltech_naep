@@ -33,11 +33,6 @@ private:
 
     constexpr static const char* LOG_LABEL = "Log:";
 
-    unsigned mVariablesCount;
-    std::vector<double> mVariables;
-
-    mu::Parser mParser;
-
     QWidget mMainWidget;
 
     QHBoxLayout mMainLayout;
@@ -56,6 +51,11 @@ private:
     QVBoxLayout mLogLayout;
     QLabel mLogLabel;
     QTextEdit mLogText;
+
+    mu::Parser mParser;
+
+    std::vector<double> mVariables;
+    unsigned mVariablesCount;
 
     void configureWindow();
 
