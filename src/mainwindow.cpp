@@ -3,7 +3,8 @@
 MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       mMainWidget(this),
-      mMainLayout(&mMainWidget)
+      mMainLayout(&mMainWidget),
+      mVariablesCount(VARIABLES_COUNT_DEFAULT)
 {
     setCentralWidget(&mMainWidget);
     mMainLayout.setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
@@ -81,5 +82,5 @@ void MainWindow::setFunctionButtonCallback()
 
 void MainWindow::variablesCountSpinnerCallback(int value)
 {
-
+    mVariablesCount = value;
 }

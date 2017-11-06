@@ -33,6 +33,8 @@ private:
 
     constexpr static const char* LOG_LABEL = "Log:";
 
+    unsigned mVariablesCount;
+
     mu::Parser mParser;
 
     QWidget mMainWidget;
