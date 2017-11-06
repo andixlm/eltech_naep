@@ -44,8 +44,11 @@ private:
     QVBoxLayout mMathLayout;
     QLabel mFunctionLabel;
     QTextEdit mFunctionText;
+
+    unsigned mVariablesCount;
     QLabel mVariablesCountLabel;
     QSpinBox mVariablesCountSpinner;
+
     QPushButton mSetFunctionButton;
 
     QVBoxLayout mInfoLayout;
@@ -53,8 +56,6 @@ private:
     QVBoxLayout mLogLayout;
     QLabel mLogLabel;
     QTextEdit mLogText;
-
-    unsigned mVariablesCount;
 
     void configureWindow();
 
