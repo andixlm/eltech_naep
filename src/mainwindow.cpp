@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget* parent)
     mMainLayout.setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
 
     configureWindow();
+    configureParser();
 }
 
 MainWindow::~MainWindow()
@@ -74,6 +75,13 @@ void MainWindow::configureWindow()
 
     // Log text
     mLogLayout.addWidget(&mLogText);
+}
+
+void MainWindow::configureParser()
+{
+    for (unsigned idx = 0; idx < mVariables.size(); ++idx)
+        mParser.DefineVar((QString("x%1").arg(idx)).toStdWString(),
+                          &mVariables[idx]);
 }
 
 void MainWindow::setFunctionButtonCallback()

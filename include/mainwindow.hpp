@@ -58,6 +58,7 @@ private:
     unsigned mVariablesCount;
 
     void configureWindow();
+    void configureParser();
 
     void setFunctionButtonCallback();
     void variablesCountSpinnerCallback(int value);
