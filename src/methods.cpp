@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "methods.hpp"
+#include "tools.hpp"
 
 void Methods::sven_value(double (*f)(const double), const double initial,
                          double& left_bound, double& right_bound)
@@ -558,4 +559,61 @@ double Methods::dsc(double (*f)(double),
     while (itr < MAX_ITERATIONS);
 
     return (cntr + aprx) / 2.0;
+}
+
+std::vector<double> Methods::partan_two(double (*fMono)(const double alpha),
+                                        double (*fMulti)(const std::vector<double>& x),
+                                        std::vector<double>& variables,
+                                        std::vector<double>& initial,
+                                        std::vector<double>& direction,
+                                        const double epsilon)
+{
+    unsigned methodItrs = 0, accelerationItrs = 0;
+    unsigned variablesCount = variables.size();
+
+    double alpha, beta, leftBound, rightBound;
+
+    std::vector<double> xOne = initial, xTwo(variablesCount),
+            xThree(variablesCount), xFour(variablesCount),
+            accelerationDirection(variablesCount);
+
+    do
+    {
+        // Antigradient move from xOne to xTwo.
+        initial = xOne;
+        direction = Tools::find_antigradient(fMulti, initial);
+        Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+        alpha = Methods::fibonacci_two(fMono, leftBound, rightBound, epsilon);
+        Tools::convert_dimensions(alpha, initial, direction, xTwo);
+        ++methodItrs;
+
+        for (unsigned count = 0; count < variablesCount; ++count)
+        {
+            // Antigradient move from xTwo to xThree.
+            initial = xTwo;
+            direction = Tools::find_antigradient(fMulti, initial);
+            Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+            alpha = Methods::fibonacci_two(fMono, leftBound, rightBound, epsilon);
+            Tools::convert_dimensions(alpha, initial, direction, xThree);
+            ++methodItrs;
+
+            // Calculate acceleration direction as (xThree - xOne).
+            for (unsigned idx = 0; idx < variablesCount; ++idx)
+                accelerationDirection[idx] = xThree[idx] - xOne[idx];
+            // Move along acceleration direction from xThree to xFour.
+            initial = xThree;
+            direction = accelerationDirection;
+            Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+            beta = Methods::fibonacci_two(fMono, leftBound, rightBound, epsilon);
+            Tools::convert_dimensions(beta, initial, direction, xFour);
+            ++accelerationItrs;
+
+            xOne = xTwo;
+            xTwo = xFour;
+        }
+    }
+    while (Tools::find_norm(accelerationDirection) > epsilon &&
+           methodItrs < MAX_ITERATIONS);
+
+    return xFour;
 }
