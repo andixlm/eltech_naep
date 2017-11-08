@@ -55,6 +55,21 @@ void MainWindow::configureWindow()
             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this, &MainWindow::variablesCountSpinnerCallback);
 
+    // Precision label
+    mMathLayout.addWidget(&mPrecisionLabel);
+    mMathLayout.setAlignment(&mPrecisionLabel, Qt::AlignTop);
+    mPrecisionLabel.setText(PRECISION_LABEL);
+
+    // Precision spinner
+    mMathLayout.addWidget(&mPrecisionSpinner);
+    mMathLayout.setAlignment(&mPrecisionSpinner, Qt::AlignTop);
+    mPrecisionSpinner.setMinimum(PRECISION_MIN);
+    mPrecisionSpinner.setMaximum(PRECISION_MAX);
+    mPrecisionSpinner.setValue(PRECISION_DEFAULT);
+    connect(&mPrecisionSpinner,
+            static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
+            this, &MainWindow::precisionSpinnerCallback);
+
     // Button to set function
     mMathLayout.addWidget(&mSetFunctionButton);
     mMathLayout.setAlignment(&mSetFunctionButton, Qt::AlignRight);
@@ -97,4 +112,9 @@ void MainWindow::setFunctionButtonCallback()
 void MainWindow::variablesCountSpinnerCallback(int value)
 {
     mVariablesCount = value;
+}
+
+void MainWindow::precisionSpinnerCallback(int value)
+{
+    mPrecision = value;
 }

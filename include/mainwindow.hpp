@@ -31,6 +31,11 @@ private:
     static const unsigned VARIABLES_COUNT_MAX = 10;
     static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
 
+    constexpr static const char* PRECISION_LABEL = "Precision:";
+    static const int PRECISION_MIN = -9;
+    static const int PRECISION_MAX = -1;
+    static const int PRECISION_DEFAULT = -3;
+
     constexpr static const char* SET_FUNCTION_BUTTON_LABEL = "Set function";
 
     constexpr static const char* LOG_LABEL = "Log:";
@@ -49,6 +54,10 @@ private:
     QLabel mVariablesCountLabel;
     QSpinBox mVariablesCountSpinner;
 
+    int mPrecision;
+    QLabel mPrecisionLabel;
+    QSpinBox mPrecisionSpinner;
+
     QPushButton mSetFunctionButton;
 
     QVBoxLayout mInfoLayout;
@@ -61,6 +70,7 @@ private:
 
     void setFunctionButtonCallback();
     void variablesCountSpinnerCallback(int value);
+    void precisionSpinnerCallback(int value);
 };
 
 #endif // MAINWINDOW_HPP
