@@ -5,6 +5,7 @@
 
 namespace Methods
 {
+const double INITIAL_ALPHA = 0.01;
 const unsigned MAX_ITERATIONS = 30;
 
 void sven_value(double (*f)(const double), const double initial,
