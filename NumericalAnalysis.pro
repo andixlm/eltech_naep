@@ -16,6 +16,7 @@ SOURCES += \
         src/mainwindow.cpp \
         src/methods.cpp \
         src/parser.cpp \
+        src/result.cpp \
         src/tools.cpp \
         src/muParser/muParser.cpp \
         src/muParser/muParserBase.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
         include/mainwindow.hpp \
         include/methods.hpp \
         include/parser.hpp \
+        include/result.hpp \
         include/tools.hpp \
         include/muParser/muParser.h \
         include/muParser/muParserBase.h \
