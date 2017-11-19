@@ -1,6 +1,7 @@
 #include <cmath>
 
 #include "methods.hpp"
+#include "result.hpp"
 #include "tools.hpp"
 
 void Methods::sven_value(double (*f)(const double), const double initial,
@@ -561,12 +562,12 @@ double Methods::dsc(double (*f)(double),
     return (cntr + aprx) / 2.0;
 }
 
-std::vector<double> Methods::partan_two(double (*fMono)(const double alpha),
-                                        double (*fMulti)(const std::vector<double>& x),
-                                        std::vector<double>& variables,
-                                        std::vector<double>& initial,
-                                        std::vector<double>& direction,
-                                        const double epsilon)
+Result Methods::partan_two(double (*fMono)(const double alpha),
+                           double (*fMulti)(const std::vector<double>& x),
+                           std::vector<double>& variables,
+                           std::vector<double>& initial,
+                           std::vector<double>& direction,
+                           const double epsilon)
 {
     unsigned methodItrs = 0, accelerationItrs = 0;
     unsigned variablesCount = variables.size();
@@ -615,5 +616,5 @@ std::vector<double> Methods::partan_two(double (*fMono)(const double alpha),
     while (Tools::find_norm(accelerationDirection) > epsilon &&
            methodItrs < MAX_ITERATIONS);
 
-    return xFour;
+    return Result(methodItrs, accelerationItrs, xFour);
 }

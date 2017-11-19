@@ -2,6 +2,7 @@
 #define METHODS
 
 #include "mainwindow.hpp"
+#include "result.hpp"
 
 namespace Methods
 {
@@ -51,12 +52,12 @@ double dsc(double (*f)(double),
            double& left_bound, double& cntr, double& right_bound,
            const double epsilon);
 
-std::vector<double> partan_two(double (*fMono)(const double alpha),
-                               double (*fMulti)(const std::vector<double>&),
-                               std::vector<double>& variables,
-                               std::vector<double>& initial,
-                               std::vector<double>& direction,
-                               const double epsilon);
+Result partan_two(double (*fMono)(const double alpha),
+                  double (*fMulti)(const std::vector<double>&),
+                  std::vector<double>& variables,
+                  std::vector<double>& initial,
+                  std::vector<double>& direction,
+                  const double epsilon);
 }
 
 #endif
