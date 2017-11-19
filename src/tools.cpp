@@ -4,6 +4,27 @@
 #include "tools.hpp"
 
 /*
+ * Returns first partial derivative of function @f defined by @variableCount.
+ * Checked: yes
+ */
+double Tools::first_derivative(double (*f)(const std::vector<double>&),
+                               const std::vector<double>& x, int variableCount)
+{
+    static std::vector<double> auxiliaryOne = std::vector<double>(x);
+    static std::vector<double> auxiliaryTwo = std::vector<double>(x);
+
+    auxiliaryOne[variableCount] += EPSILON;
+    auxiliaryTwo[variableCount] -= EPSILON;
+
+    double result = (f(auxiliaryOne) - f(auxiliaryTwo)) / (2.0 * EPSILON);
+
+    auxiliaryOne[variableCount] = x[variableCount];
+    auxiliaryTwo[variableCount] = x[variableCount];
+
+    return result;
+}
+
+/*
  * Returns gradient of function "f" of vector "x".
  * Checked: yes.
  */
@@ -11,19 +32,9 @@ std::vector<double> Tools::find_gradient(double (*f)(const std::vector<double>&)
     const std::vector<double>& x)
 {
     std::vector<double> gradient;
-    std::vector<double> auxiliaryOne = std::vector<double>(x);
-    std::vector<double> auxiliaryTwo = std::vector<double>(x);
 
-    for (unsigned idx = 0; idx < auxiliaryOne.size(); ++idx)
-    {
-        auxiliaryOne[idx] += EPSILON;
-        auxiliaryTwo[idx] -= EPSILON;
-
-        gradient.push_back((f(auxiliaryOne) - f(auxiliaryTwo)) / (2.0 * EPSILON));
-
-        auxiliaryOne[idx] = x[idx];
-        auxiliaryTwo[idx] = x[idx];
-    }
+    for (unsigned idx = 0; idx < x.size(); ++idx)
+        gradient.push_back(first_derivative(f, x, idx));
 
     return std::move(gradient);
 }

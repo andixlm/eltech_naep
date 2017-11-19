@@ -6,6 +6,9 @@ namespace Tools
 {
 const double EPSILON = 1E-6;
 
+double first_derivative(double (*f)(const std::vector<double>&),
+                        const std::vector<double>& x, int variableCount);
+
 std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x);
 std::vector<double> find_antigradient(double (*f)(const std::vector<double>&),
