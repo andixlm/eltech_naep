@@ -11,14 +11,18 @@ std::vector<double> Tools::find_gradient(double (*f)(const std::vector<double>&)
     const std::vector<double>& x)
 {
     std::vector<double> gradient;
-    std::vector<double> auxiliary = std::vector<double>(x);
+    std::vector<double> auxiliaryOne = std::vector<double>(x);
+    std::vector<double> auxiliaryTwo = std::vector<double>(x);
 
-    for (unsigned idx = 0; idx < auxiliary.size(); ++idx)
+    for (unsigned idx = 0; idx < auxiliaryOne.size(); ++idx)
     {
-        auxiliary[idx] += EPSILON;
-        gradient.push_back((f(auxiliary) - f(x)) / EPSILON);
+        auxiliaryOne[idx] += EPSILON;
+        auxiliaryTwo[idx] -= EPSILON;
 
-        auxiliary[idx] = x[idx];
+        gradient.push_back((f(auxiliaryOne) - f(auxiliaryTwo)) / (2.0 * EPSILON));
+
+        auxiliaryOne[idx] = x[idx];
+        auxiliaryTwo[idx] = x[idx];
     }
 
     return std::move(gradient);
