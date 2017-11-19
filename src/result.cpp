@@ -59,9 +59,9 @@ QString Result::getMessage() const
         message.append("\tVector: { ");
 
         for (unsigned idx = 0; idx < vectorCount - 1; ++idx)
-            message.append(QString::number(mVector[idx], 'g', 9) + QString("; "));
+            message.append(QString::number(mVector[idx], 'g', 12) + QString("; "));
 
-        message.append(QString::number(mVector[vectorCount - 1], 'g', 9) +
+        message.append(QString::number(mVector[vectorCount - 1], 'g', 12) +
                 QString(" }"));
     }
 
