@@ -7,12 +7,24 @@ class Result
 {
 public:
     Result(const std::vector<double>& vector) :
-        mIterations(-1), mVector(vector) {}
-    Result(const std::vector<double>& vector, int iterations) :
-        mIterations(iterations), mVector(vector) {}
+        mNormalItrs(-1),
+        mAccelerationItrs(-1),
+        mVector(vector) {}
+    Result(int normalItrs, const std::vector<double>& vector) :
+        mNormalItrs(normalItrs),
+        mAccelerationItrs(-1),
+        mVector(vector) {}
+    Result(int normalItrs, int accelerationItrs,
+           const std::vector<double>& vector) :
+        mNormalItrs(normalItrs),
+        mAccelerationItrs(accelerationItrs),
+        mVector(vector) {}
 
-    int getIterations() const;
-    void setIterations(int iterations);
+    int getNormalItrs() const;
+    void setNormalItrs(int iterations);
+
+    int getAccelerationItrs() const;
+    void setAccelerationItrs(int iterations);
 
     std::vector<double> getVector() const;
     void setVector(const std::vector<double>& vector);
@@ -20,7 +32,8 @@ public:
     QString getMessage() const;
 
 private:
-    int mIterations;
+    int mNormalItrs;
+    int mAccelerationItrs;
 
     std::vector<double> mVector;
 };

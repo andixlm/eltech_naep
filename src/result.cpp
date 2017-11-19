@@ -3,14 +3,24 @@
 
 #include "result.hpp"
 
-int Result::getIterations() const
+int Result::getNormalItrs() const
 {
-    return mIterations;
+    return mNormalItrs;
 }
 
-void Result::setIterations(int iterations)
+void Result::setNormalItrs(int iterations)
 {
-    mIterations  = iterations;
+    mNormalItrs  = iterations;
+}
+
+int Result::getAccelerationItrs() const
+{
+    return mAccelerationItrs;
+}
+
+void Result::setAccelerationItrs(int iterations)
+{
+    mAccelerationItrs = iterations;
 }
 
 std::vector<double> Result::getVector() const
@@ -29,10 +39,10 @@ QString Result::getMessage() const
 
     message.append("Result:\n\t");
 
-    if (mIterations > 0)
+    if (mNormalItrs > 0)
     {
         message.append("Iterations: ");
-        message.append(QString::number(mIterations));
+        message.append(QString::number(mNormalItrs));
         message.append("\n");
     }
 
