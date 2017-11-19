@@ -8,6 +8,9 @@ const double EPSILON = 1E-6;
 
 double first_derivative(double (*f)(const std::vector<double>&),
                         const std::vector<double>& x, int variableCount);
+double second_derivative(double (*f)(const std::vector<double>&),
+                         const std::vector<double>& x,
+                         int alphaVariableCount, int betaVariableCount);
 
 std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x);

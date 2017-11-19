@@ -26,6 +26,47 @@ double Tools::first_derivative(double (*f)(const std::vector<double>&),
 }
 
 /*
+ * Returns second partial derivative of function @f defined by
+ * @alphaVariableCount and @betaVariableCount.
+ * Checked: yes
+ */
+double Tools::second_derivative(double (*f)(const std::vector<double>&),
+                                const std::vector<double>& x,
+                                int alphaVariableCount, int betaVariableCount)
+{
+    static std::vector<double> auxiliaryOne = std::vector<double>(x);
+    static std::vector<double> auxiliaryTwo = std::vector<double>(x);
+    static std::vector<double> auxiliaryThree = std::vector<double>(x);
+    static std::vector<double> auxiliaryFour = std::vector<double>(x);
+
+    // Add difference.
+    auxiliaryOne[alphaVariableCount]    += EPSILON;
+    auxiliaryOne[betaVariableCount]     += EPSILON;
+    auxiliaryTwo[alphaVariableCount]    += EPSILON;
+    auxiliaryTwo[betaVariableCount]     -= EPSILON;
+    auxiliaryThree[alphaVariableCount]  -= EPSILON;
+    auxiliaryThree[betaVariableCount]   += EPSILON;
+    auxiliaryFour[alphaVariableCount]   -= EPSILON;
+    auxiliaryFour[betaVariableCount]    -= EPSILON;
+
+    double result = (f(auxiliaryOne) - f(auxiliaryTwo) -
+                     f(auxiliaryThree) + f(auxiliaryFour)) /
+            (4.0 * EPSILON * EPSILON);
+
+    // Restore initial values.
+    auxiliaryOne[alphaVariableCount]    = x[alphaVariableCount];
+    auxiliaryOne[betaVariableCount]     = x[betaVariableCount];
+    auxiliaryTwo[alphaVariableCount]    = x[alphaVariableCount];
+    auxiliaryTwo[betaVariableCount]     = x[betaVariableCount];
+    auxiliaryThree[alphaVariableCount]  = x[alphaVariableCount];
+    auxiliaryThree[betaVariableCount]   = x[betaVariableCount];
+    auxiliaryFour[alphaVariableCount]   = x[alphaVariableCount];
+    auxiliaryFour[betaVariableCount]    = x[betaVariableCount];
+
+    return result;
+}
+
+/*
  * Returns gradient of function "f" of vector "x".
  * Checked: yes.
  */
