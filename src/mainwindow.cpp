@@ -6,7 +6,8 @@ MainWindow::MainWindow(QWidget* parent)
     : QMainWindow(parent),
       mMainWidget(this),
       mMainLayout(&mMainWidget),
-      mVariablesCount(VARIABLES_COUNT_DEFAULT)
+      mVariablesCount(VARIABLES_COUNT_DEFAULT),
+      mPrecision(PRECISION_DEFAULT)
 {
     setCentralWidget(&mMainWidget);
     mMainLayout.setAlignment(Qt::AlignVCenter | Qt::AlignHCenter);
