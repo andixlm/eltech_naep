@@ -10,19 +10,14 @@
 double Tools::first_derivative(double (*f)(const std::vector<double>&),
                                const std::vector<double>& x, int variableCount)
 {
-    static std::vector<double> auxiliaryOne = std::vector<double>(x);
-    static std::vector<double> auxiliaryTwo = std::vector<double>(x);
+    std::vector<double> auxiliaryOne = std::vector<double>(x);
+    std::vector<double> auxiliaryTwo = std::vector<double>(x);
 
     auxiliaryOne[variableCount] -= EPSILON;
     auxiliaryTwo[variableCount] += EPSILON;
 
-    double result = (f(auxiliaryOne) - 4.0 * f(x) + 3.0 * f(auxiliaryTwo)) /
+    return (f(auxiliaryOne) - 4.0 * f(x) + 3.0 * f(auxiliaryTwo)) /
             (2.0 * EPSILON);
-
-    auxiliaryOne[variableCount] = x[variableCount];
-    auxiliaryTwo[variableCount] = x[variableCount];
-
-    return result;
 }
 
 /*
@@ -34,10 +29,10 @@ double Tools::second_derivative(double (*f)(const std::vector<double>&),
                                 const std::vector<double>& x,
                                 int alphaVariableCount, int betaVariableCount)
 {
-    static std::vector<double> auxiliaryOne = std::vector<double>(x);
-    static std::vector<double> auxiliaryTwo = std::vector<double>(x);
-    static std::vector<double> auxiliaryThree = std::vector<double>(x);
-    static std::vector<double> auxiliaryFour = std::vector<double>(x);
+    std::vector<double> auxiliaryOne = std::vector<double>(x);
+    std::vector<double> auxiliaryTwo = std::vector<double>(x);
+    std::vector<double> auxiliaryThree = std::vector<double>(x);
+    std::vector<double> auxiliaryFour = std::vector<double>(x);
 
     // Add difference.
     auxiliaryOne[alphaVariableCount]    += EPSILON;
@@ -49,21 +44,8 @@ double Tools::second_derivative(double (*f)(const std::vector<double>&),
     auxiliaryFour[alphaVariableCount]   -= EPSILON;
     auxiliaryFour[betaVariableCount]    -= EPSILON;
 
-    double result = (f(auxiliaryOne) - f(auxiliaryTwo) -
-                     f(auxiliaryThree) + f(auxiliaryFour)) /
-            (4.0 * EPSILON * EPSILON);
-
-    // Restore initial values.
-    auxiliaryOne[alphaVariableCount]    = x[alphaVariableCount];
-    auxiliaryOne[betaVariableCount]     = x[betaVariableCount];
-    auxiliaryTwo[alphaVariableCount]    = x[alphaVariableCount];
-    auxiliaryTwo[betaVariableCount]     = x[betaVariableCount];
-    auxiliaryThree[alphaVariableCount]  = x[alphaVariableCount];
-    auxiliaryThree[betaVariableCount]   = x[betaVariableCount];
-    auxiliaryFour[alphaVariableCount]   = x[alphaVariableCount];
-    auxiliaryFour[betaVariableCount]    = x[betaVariableCount];
-
-    return result;
+    return (f(auxiliaryOne) - f(auxiliaryTwo) -
+            f(auxiliaryThree) + f(auxiliaryFour)) / (4.0 * EPSILON * EPSILON);
 }
 
 /*
