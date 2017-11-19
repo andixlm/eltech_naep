@@ -13,10 +13,11 @@ double Tools::first_derivative(double (*f)(const std::vector<double>&),
     static std::vector<double> auxiliaryOne = std::vector<double>(x);
     static std::vector<double> auxiliaryTwo = std::vector<double>(x);
 
-    auxiliaryOne[variableCount] += EPSILON;
-    auxiliaryTwo[variableCount] -= EPSILON;
+    auxiliaryOne[variableCount] -= EPSILON;
+    auxiliaryTwo[variableCount] += EPSILON;
 
-    double result = (f(auxiliaryOne) - f(auxiliaryTwo)) / (2.0 * EPSILON);
+    double result = (f(auxiliaryOne) - 4.0 * f(x) + 3.0 * f(auxiliaryTwo)) /
+            (2.0 * EPSILON);
 
     auxiliaryOne[variableCount] = x[variableCount];
     auxiliaryTwo[variableCount] = x[variableCount];
