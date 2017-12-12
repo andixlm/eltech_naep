@@ -108,9 +108,17 @@ void MainWindow::setFunctionButtonCallback()
 
     try
     {
-        Parser::sParser.Eval();
+        Parser::sPosition = readVariables();
+    }
+    catch (std::invalid_argument& exc)
+    {
+        mLogText.append(ERROR_MSG + QString(exc.what()));
+        return;
+    }
 
-        mLogText.append(INFO_MSG + QString(FUNCTION_IS_SET_MSG));
+    try
+    {
+        Parser::sParser.Eval();
     }
     catch (mu::Parser::exception_type& exc)
     {
