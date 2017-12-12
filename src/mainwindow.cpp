@@ -118,6 +118,31 @@ void MainWindow::setFunctionButtonCallback()
     }
 }
 
+std::vector<double> MainWindow::readVariables()
+{
+    QStringList variablesValuesStrings =
+            mVariablesValuesText.toPlainText()
+                .trimmed()
+                .split(VARIABLES_VALUES_SEPARATOR);
+
+    if (mVariablesCount != variablesValuesStrings.size())
+        throw std::invalid_argument("Variables counts aren\'t matched.");
+
+    std::vector<double> variables;
+
+    for (auto variableValueString : variablesValuesStrings)
+    {
+        bool isDoubleOk;
+        variables.push_back(static_cast<const QString>
+                            (variableValueString).toDouble(&isDoubleOk));
+
+        if (!isDoubleOk)
+            throw std::invalid_argument("Variables are incorrect.");
+    }
+
+    return variables;
+}
+
 void MainWindow::variablesCountSpinnerCallback(int value)
 {
     mVariablesCount = value;
