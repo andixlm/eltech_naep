@@ -54,7 +54,7 @@ private:
     QLabel mFunctionLabel;
     QTextEdit mFunctionText;
 
-    unsigned mVariablesCount;
+    int mVariablesCount;
     QLabel mVariablesCountLabel;
     QSpinBox mVariablesCountSpinner;
 
