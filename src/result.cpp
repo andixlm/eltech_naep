@@ -41,14 +41,14 @@ QString Result::getMessage() const
 
     if (mNormalItrs > 0)
     {
-        message.append("\tNormal iterations: ");
+        message.append("* Normal iterations: ");
         message.append(QString::number(mNormalItrs));
         message.append("\n");
     }
 
     if (mAccelerationItrs > 0)
     {
-        message.append("\tAcceleration iterations: ");
+        message.append("* Acceleration iterations: ");
         message.append(QString::number(mAccelerationItrs));
         message.append("\n");
     }
@@ -56,7 +56,7 @@ QString Result::getMessage() const
     unsigned vectorCount = mVector.size();
     if (vectorCount > 0)
     {
-        message.append("\tVector: { ");
+        message.append("* Vector: { ");
 
         for (unsigned idx = 0; idx < vectorCount - 1; ++idx)
             message.append(QString::number(mVector[idx], 'g', 12) + QString("; "));
