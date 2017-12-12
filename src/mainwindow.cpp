@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget* parent)
       mMainWidget(this),
       mMainLayout(&mMainWidget),
       mVariablesCount(VARIABLES_COUNT_DEFAULT),
+      mVariablesValues(mVariablesCount),
       mPrecision(PRECISION_DEFAULT)
 {
     setCentralWidget(&mMainWidget);
@@ -55,6 +56,13 @@ void MainWindow::configureWindow()
     connect(&mVariablesCountSpinner,
             static_cast<void (QSpinBox::*)(int)>(&QSpinBox::valueChanged),
             this, &MainWindow::variablesCountSpinnerCallback);
+
+    // Variables values
+    mMathLayout.addWidget(&mVariablesValuesText);
+    mMathLayout.setAlignment(&mVariablesValuesText, Qt::AlignTop);
+    mVariablesValuesText.setSizePolicy(QSizePolicy::Policy::Fixed,
+                                       QSizePolicy::Policy::Fixed);
+    mVariablesValuesText.setFixedHeight(VARIABLES_VALUES_TEXT_HEIGHT);
 
     // Precision label
     mMathLayout.addWidget(&mPrecisionLabel);

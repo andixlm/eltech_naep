@@ -31,6 +31,8 @@ private:
     static const unsigned VARIABLES_COUNT_MAX = 10;
     static const unsigned VARIABLES_COUNT_DEFAULT = VARIABLES_COUNT_MIN;
 
+    static const unsigned VARIABLES_VALUES_TEXT_HEIGHT = 24;
+
     constexpr static const char* PRECISION_LABEL = "Precision:";
     static const int PRECISION_MIN = -9;
     static const int PRECISION_MAX = -1;
@@ -53,6 +55,9 @@ private:
     unsigned mVariablesCount;
     QLabel mVariablesCountLabel;
     QSpinBox mVariablesCountSpinner;
+
+    std::vector<double> mVariablesValues;
+    QTextEdit mVariablesValuesText;
 
     int mPrecision;
     QLabel mPrecisionLabel;
