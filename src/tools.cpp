@@ -125,6 +125,10 @@ void Tools::normalize(std::vector<double>& x)
         x[idx] /= norm;
 }
 
+/*
+ * Moves along @direction from point @initial with @alpha factor
+ * and saves new point to @dst
+ */
 void Tools::convert_dimensions(const double alpha,
     const std::vector<double>& initial, const std::vector<double>& direction,
     std::vector<double>& dst)
