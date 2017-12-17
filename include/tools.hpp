@@ -4,7 +4,7 @@
 
 namespace Tools
 {
-const double EPSILON = 1E-6;
+const double EPSILON = 1E-5;
 
 double first_derivative(double (*f)(const std::vector<double>&),
                         const std::vector<double>& x, int variableCount);
