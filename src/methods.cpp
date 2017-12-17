@@ -826,3 +826,82 @@ Result Methods::mсg_daniel(double (*fMono)(const double alpha),
 
     return Result(iterations - 1, xTwo);
 }
+
+Result Methods::powell_two(double (*fMono)(const double alpha),
+                           double (*fMulti)(const std::vector<double>&),
+                           std::vector<double>& variables,
+                           std::vector<double>& initial,
+                           std::vector<double>& direction,
+                           const double epsilon)
+{
+    int iterations = 0;
+
+    double alpha, leftBound, rightBound;
+
+    std::vector<double> currentPoint = initial, nextPoint(initial.size());
+
+    std::vector<std::vector<double>> initials;
+    std::vector<std::vector<double>> directions(direction.size() + 1);
+    std::vector<double> tempDirection(direction.size());
+
+    // Initialize with zeros.
+    for (unsigned idxAlpha = 0; idxAlpha < directions.size(); ++idxAlpha)
+    {
+        directions[idxAlpha] = std::vector<double>(direction.size());
+
+        for (unsigned idxBeta = 0; idxBeta < direction.size(); ++idxBeta)
+            directions[idxAlpha][idxBeta] = 0.0;
+    }
+
+    // Set directions to axes.
+    for (unsigned idx = 0; idx < directions.size() - 1; ++idx)
+        directions[idx][idx] = 1.0;
+    directions[directions.size() - 1] = directions[0];
+
+    do
+    {
+        initials.clear();
+
+        // Move along all directions.
+        for (unsigned idx = 0; idx < directions.size(); ++idx)
+        {
+            // Save point.
+            initials.push_back(currentPoint);
+
+            // Move along direction.
+            initial = currentPoint;
+            direction = directions[idx];
+            Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+            alpha = Methods::fibonacci_two(fMono, leftBound, rightBound, epsilon);
+            Tools::convert_dimensions(alpha, initial, direction, nextPoint);
+
+            currentPoint = nextPoint;
+        }
+        initials.push_back(nextPoint);
+
+        // Last and second.
+        for (unsigned idx = 0; idx < tempDirection.size(); ++idx)
+            tempDirection[idx] =
+                    initials[initials.size() - 1][idx] -
+                    initials[1][idx];
+
+        initial = nextPoint;
+        direction = tempDirection;
+        Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+        alpha = Methods::fibonacci_two(fMono, leftBound, rightBound, epsilon);
+        Tools::convert_dimensions(alpha, initial, direction, nextPoint);
+
+        if (Tools::find_norm(tempDirection) <= epsilon)
+            break;
+        else
+        {
+            for (int idx = directions.size() - 1; idx > 0; --idx)
+                directions[idx - 1] = directions[idx];
+
+            directions[0] = directions[directions.size() - 1] = tempDirection;
+        }
+    }
+    while (iterations++ < MAX_ITERATIONS);
+
+    return Result(iterations, nextPoint);
+}

@@ -80,6 +80,13 @@ Result mсg_daniel(double (*fMono)(const double alpha),
                   std::vector<double>& initial,
                   std::vector<double>& direction,
                   const double epsilon);
+
+Result powell_two(double (*fMono)(const double alpha),
+                  double (*fMulti)(const std::vector<double>&),
+                  std::vector<double>& variables,
+                  std::vector<double>& initial,
+                  std::vector<double>& direction,
+                  const double epsilon);
 }
 
 #endif
