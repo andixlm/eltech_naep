@@ -658,3 +658,88 @@ Result Methods::step_adjusting_newton(double (*fMono)(const double),
 
     return Result(iterations, xTwo);
 }
+
+static matrix find_pearson_two_matrix(const matrix& prevMatrix,
+                                      const std::vector<double>& prevPoint,
+                                      const std::vector<double>& currPoint,
+                                      const std::vector<double>& prevAntigradient,
+                                      const std::vector<double>& currGradient)
+{
+    std::vector<double> deltaX(currPoint);
+    for (unsigned idx = 0; idx < deltaX.size(); ++idx)
+        deltaX[idx] -= prevPoint[idx];
+    matrix deltaXMatrix("", deltaX);
+
+    std::vector<double> gamma(currGradient);
+    for (unsigned idx = 0; idx < gamma.size(); ++idx)
+        gamma[idx] += prevAntigradient[idx];
+    const matrix gammaMatrix("", gamma);
+
+    matrix s = prevMatrix * gammaMatrix;
+
+    matrix numerator = (deltaXMatrix - s) * deltaXMatrix.transpose();
+    double denominator = (deltaXMatrix.transpose() * gammaMatrix).m_data[0][0];
+
+    return prevMatrix + numerator / denominator;
+}
+
+Result Methods::quasinewton_pearson_two(double (*fMono)(const double alpha),
+                                        double (*fMulti)(const std::vector<double>&),
+                                        std::vector<double>& variables,
+                                        std::vector<double>& initial,
+                                        std::vector<double>& direction,
+                                        const double epsilon)
+{
+    double alpha, leftBound, rightBound;
+    unsigned iterations = 1, variablesCount = variables.size();
+
+    std::vector<double> prevPoint(variablesCount), currPoint(initial),
+            nextPoint(variablesCount);
+    std::vector<double> currDirection(variablesCount);
+    std::vector<double> prevAntigradient(variablesCount),
+            currGradient(variablesCount);
+
+    matrix prevA("", variablesCount, variablesCount),
+            currA("", variablesCount, variablesCount);
+
+    do
+    {
+        currGradient = Tools::find_gradient(fMulti, currPoint);
+
+        std::vector<double> currAntigradient(currGradient);
+        for (unsigned idx = 0; idx < variablesCount; ++idx)
+            currAntigradient[idx] = -currAntigradient[idx];
+
+        if ((iterations * variablesCount + 1) % (iterations) == 0)
+        {
+            currA = matrix("", 1.0, variablesCount, variablesCount);
+            currDirection = currAntigradient;
+        }
+        else
+        {
+            currA = find_pearson_two_matrix(prevA, prevPoint, nextPoint,
+                                            prevAntigradient, currGradient);
+            currDirection = currA * currAntigradient;
+        }
+
+        initial = currPoint;
+        direction = currDirection;
+        Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+        alpha = fibonacci_two(fMono, leftBound, rightBound, epsilon);
+        Tools::convert_dimensions(alpha, initial, direction, nextPoint);
+
+        // Update variables.
+        prevPoint = currPoint;
+        currPoint = nextPoint;
+
+        prevAntigradient = currAntigradient;
+
+        prevA = currA;
+
+        ++iterations;
+    }
+    while (Tools::find_norm(Tools::find_gradient(fMulti, nextPoint)) > epsilon &&
+           iterations - 1 < MAX_ITERATIONS);
+
+    return Result(iterations - 1, nextPoint);
+}
