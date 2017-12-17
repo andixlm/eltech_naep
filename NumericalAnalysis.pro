@@ -18,6 +18,7 @@ SOURCES += \
         src/parser.cpp \
         src/result.cpp \
         src/tools.cpp \
+        src/matrix.cpp \
         src/muParser/muParser.cpp \
         src/muParser/muParserBase.cpp \
         src/muParser/muParserBytecode.cpp \
@@ -34,6 +35,7 @@ HEADERS += \
         include/parser.hpp \
         include/result.hpp \
         include/tools.hpp \
+        include/matrix.hpp \
         include/muParser/muParser.h \
         include/muParser/muParserBase.h \
         include/muParser/muParserBytecode.h \
