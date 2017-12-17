@@ -74,7 +74,7 @@ Result quasinewton_pearson_two(double (*fMono)(const double alpha),
                                std::vector<double>& direction,
                                const double epsilon);
 
-Result mсg_daniel(double (*fMono)(const double alpha),
+Result mcg_daniel(double (*fMono)(const double alpha),
                   double (*fMulti)(const std::vector<double>&),
                   std::vector<double>& variables,
                   std::vector<double>& initial,

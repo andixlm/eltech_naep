@@ -764,7 +764,7 @@ static double find_daniel_coefficient(const std::vector<double>& prevDir,
     return numerator / denominator;
 }
 
-Result Methods::mсg_daniel(double (*fMono)(const double alpha),
+Result Methods::mcg_daniel(double (*fMono)(const double alpha),
                            double (*fMulti)(const std::vector<double>&),
                            std::vector<double>& variables,
                            std::vector<double>& initial,
