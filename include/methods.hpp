@@ -7,6 +7,7 @@
 namespace Methods
 {
 const double INITIAL_ALPHA = 0.01;
+const double NEWTON_BETA_FACTOR = 2.0;
 const unsigned MAX_ITERATIONS = 30;
 
 void sven_value(double (*f)(const double), const double initial,
@@ -58,6 +59,13 @@ Result partan_two(double (*fMono)(const double alpha),
                   std::vector<double>& initial,
                   std::vector<double>& direction,
                   const double epsilon);
+
+Result step_adjusting_newton(double (*fMono)(const double alpha),
+                             double (*fMulti)(const std::vector<double>&),
+                             std::vector<double>& variables,
+                             std::vector<double>& initial,
+                             std::vector<double>& direction,
+                             const double epsilon);
 }
 
 #endif

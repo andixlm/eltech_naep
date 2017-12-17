@@ -618,3 +618,43 @@ Result Methods::partan_two(double (*fMono)(const double alpha),
 
     return Result(methodItrs, accelerationItrs, xFour);
 }
+
+Result Methods::step_adjusting_newton(double (*fMono)(const double),
+                                      double (*fMulti)(const std::vector<double>&),
+                                      std::vector<double>& variables,
+                                      std::vector<double>& initial,
+                                      std::vector<double>& direction,
+                                      const double epsilon)
+{
+    double alpha;
+    unsigned iterations = 0, variablesCount = variables.size();
+    std::vector<double> xOne(initial), xTwo(variablesCount),
+            xDelta(variablesCount);
+
+    do
+    {
+        std::vector<double> antigradient =
+                Tools::find_antigradient(fMulti, xOne);
+        matrix hessian = Tools::find_hessian(fMulti, xOne);
+
+        xDelta = hessian.inverse() * antigradient;
+        Tools::normalize(xDelta);
+
+        alpha = 1.0;
+        initial = xOne;
+        direction = xDelta;
+        while (fMono(alpha) > fMulti(initial) + epsilon *
+               pow(Tools::find_norm(Tools::find_gradient(fMulti, initial)), 2.0)
+               * alpha)
+            alpha /= NEWTON_BETA_FACTOR;
+
+        Tools::convert_dimensions(alpha, initial, direction, xTwo);
+
+        xOne = xTwo;
+        ++iterations;
+    }
+    while (Tools::find_norm(Tools::find_gradient(fMulti, xTwo)) > epsilon &&
+           iterations < MAX_ITERATIONS);
+
+    return Result(iterations, xTwo);
+}
