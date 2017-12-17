@@ -81,6 +81,25 @@ std::vector<double> Tools::find_antigradient(double (*f)(const std::vector<doubl
 }
 
 /*
+ * Returns Hessian of function "f" of vector "x".
+ * Checked: yes.
+ */
+matrix Tools::find_hessian(double (*f)(const std::vector<double>&),
+                           const std::vector<double>& x)
+{
+    int variablesCount = x.size();
+
+    matrix hessian("HESSIAN", variablesCount, variablesCount);
+
+    for (int alpha = 0; alpha < variablesCount; ++alpha)
+        for (int beta = 0; beta < variablesCount; ++beta)
+            hessian.m_data[alpha][beta] =
+                    Tools::second_derivative(f, x, alpha, beta);
+
+    return hessian;
+}
+
+/*
  * Returns norm of vector "x".
  * Checked: yes.
  */

@@ -1,6 +1,7 @@
 #ifndef FUNCTIONS
 #define FUNCTIONS
 
+#include "matrix.hpp"
 
 namespace Tools
 {
@@ -16,6 +17,8 @@ std::vector<double> find_gradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x);
 std::vector<double> find_antigradient(double (*f)(const std::vector<double>&),
     const std::vector<double>& x);
+matrix find_hessian(double (*f)(const std::vector<double>&),
+                    const std::vector<double>& x);
 double find_norm(const std::vector<double>& x);
 
 void normalize(std::vector<double>& x);
