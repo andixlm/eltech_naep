@@ -94,6 +94,18 @@ double Tools::find_norm(const std::vector<double>& x)
     return sqrt(result);
 }
 
+/*
+ * Normalizes vector @x.
+ * Checked: yes.
+ */
+void Tools::normalize(std::vector<double>& x)
+{
+    double norm = Tools::find_norm(x);
+
+    for (unsigned idx = 0; idx < x.size(); ++idx)
+        x[idx] /= norm;
+}
+
 void Tools::convert_dimensions(const double alpha,
     const std::vector<double>& initial, const std::vector<double>& direction,
     std::vector<double>& dst)
