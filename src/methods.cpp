@@ -743,3 +743,86 @@ Result Methods::quasinewton_pearson_two(double (*fMono)(const double alpha),
 
     return Result(iterations - 1, nextPoint);
 }
+
+static double find_daniel_coefficient(const std::vector<double>& prevDir,
+                                      const std::vector<double>& prevAntigradient,
+                                      const std::vector<double>& currGradient)
+{
+    unsigned variablesCount = prevDir.size();
+
+    std::vector<double> gamma(variablesCount);
+    for (unsigned idx = 0; idx < variablesCount; ++idx)
+        gamma[idx] = currGradient[idx] + prevAntigradient[idx];
+
+    double numerator = 0.0, denominator = 0.0;
+    for (unsigned idx = 0; idx < variablesCount; ++idx)
+    {
+        numerator += currGradient[idx] * gamma[idx];
+        denominator += prevDir[idx] * gamma[idx];
+    }
+
+    return numerator / denominator;
+}
+
+Result Methods::mсg_daniel(double (*fMono)(const double alpha),
+                           double (*fMulti)(const std::vector<double>&),
+                           std::vector<double>& variables,
+                           std::vector<double>& initial,
+                           std::vector<double>& direction,
+                           const double epsilon)
+{
+    double alpha, leftBound, rightBound;
+    unsigned iterations = 1, variablesCount = variables.size();
+
+    std::vector<double> xOne(initial), xTwo(variablesCount);
+    std::vector<double> prevDirection(variablesCount),
+            currDirection(variablesCount);
+    std::vector<double> prevAntigradient(variablesCount),
+            currGradient(variablesCount);
+
+    do
+    {
+        currGradient = Tools::find_gradient(fMulti, xOne);
+
+        std::vector<double> currAntigradient(currGradient);
+        for (unsigned idx = 0; idx < variablesCount; ++idx)
+            currAntigradient[idx] = -currAntigradient[idx];
+
+        // Build currDirection.
+        if ((iterations * variablesCount + 1) % (iterations) == 0)
+        {
+            currDirection = currAntigradient;
+        }
+        else
+        {
+            // Daniel ratio.
+            double beta = find_daniel_coefficient(prevDirection,
+                                                  prevAntigradient,
+                                                  currGradient);
+
+            // Correct prevDirection.
+            for (unsigned idx = 0; idx < variablesCount; ++idx)
+                prevDirection[idx] *= beta;
+
+            // Calculate currDirection.
+            for (unsigned idx = 0; idx < variablesCount; ++idx)
+                currDirection[idx] = currAntigradient[idx] + prevDirection[idx];
+        }
+
+        initial = xOne;
+        direction = currDirection;
+        Methods::sven_value(fMono, INITIAL_ALPHA, leftBound, rightBound);
+        alpha = fibonacci_two(fMono, leftBound, rightBound, epsilon);
+        Tools::convert_dimensions(alpha, initial, direction, xTwo);
+
+        xOne = xTwo;
+        prevDirection = currDirection;
+        prevAntigradient = currAntigradient;
+
+        ++iterations;
+    }
+    while (Tools::find_norm(Tools::find_gradient(fMulti, xTwo)) > epsilon &&
+           iterations - 1 < MAX_ITERATIONS);
+
+    return Result(iterations - 1, xTwo);
+}
